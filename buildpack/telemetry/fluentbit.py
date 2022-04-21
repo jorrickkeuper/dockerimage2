@@ -32,8 +32,6 @@ def stage(buildpack_dir, destination_path, cache_path):
         os.path.join(
             destination_path,
             NAMESPACE,
-            "etc",
-            "fluentbit",
         ),
     )
 
