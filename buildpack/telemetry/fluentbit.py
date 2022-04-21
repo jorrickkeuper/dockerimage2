@@ -28,7 +28,7 @@ def stage(buildpack_dir, destination_path, cache_path):
     )
 
     shutil.copy(
-        os.path.join(buildpack_path, "etc", "fluentbit", CONFIG_FILENAME),
+        os.path.join(buildpack_dir, "etc", "fluentbit", CONFIG_FILENAME),
         os.path.join(
             destination_path,
             NAMESPACE,
