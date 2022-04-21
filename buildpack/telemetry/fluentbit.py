@@ -5,7 +5,7 @@ from buildpack import util
 
 
 NAMESPACE = "fluentbit"
-FLUENTBIT_BIN_NAME = "fluent-bit"
+FLUENTBIT_BIN_NAME = "fluent-bit-1.9.1-compiled.tar.gz"
 
 
 def stage(buildpack_dir, destination_path, cache_path):
@@ -22,5 +22,4 @@ def stage(buildpack_dir, destination_path, cache_path):
         os.path.join(destination_path, NAMESPACE),
         buildpack_dir=buildpack_dir,
         cache_dir=cache_path,
-        unpack=False,
     )
