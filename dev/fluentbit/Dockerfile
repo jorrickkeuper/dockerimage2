@@ -1,4 +1,4 @@
-FROM cloudfoundry/cflinuxfs3:latest
+FROM cloudfoundry/cflinuxfs3:latest AS base_build
 
 RUN apt remove -y --purge cmake &&\
     hash -r &&\
@@ -10,3 +10,14 @@ RUN apt remove -y --purge cmake &&\
     make &&\
     sudo make install &&\
     cd ../
+
+FROM base_build
+
+RUN wget https://github.com/fluent/fluent-bit/archive/refs/tags/v1.9.2.tar.gz
+RUN tar -xvf v1.9.2.tar.gz
+RUN cd fluent-bit-1.9.2/build/
+WORKDIR fluent-bit-1.9.2/build/
+RUN cmake ../
+RUN make
+
+CMD ["/bin/sh"]
