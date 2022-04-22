@@ -36,8 +36,22 @@ def stage(buildpack_dir, destination_path, cache_path):
     )
 
 
-#def run():
-#    subprocess.Popen(
-#        (, "-c"),
-#        env=env_dict,
-#    )
+def run():
+    fluentbit_dir = os.path.join(
+        os.path.abspath(".local"),
+        NAMESPACE,
+    )
+
+    fluentbit_bin_path = os.path.join(
+        fluentbit_dir,
+        "fluent-bit",
+    )
+
+    fluentbit_config_path = os.path.join(
+        fluentbit_dir,
+        "fluentbit.conf",
+    )
+
+    subprocess.Popen(
+        (fluentbit_bin_path, "-c", fluentbit_config_path),
+    )

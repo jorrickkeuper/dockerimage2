@@ -14,6 +14,7 @@ from buildpack.telemetry import (
     appdynamics,
     datadog,
     dynatrace,
+    fluentbit,
     logs,
     metering,
     metrics,
@@ -177,6 +178,7 @@ if __name__ == "__main__":
         runtime.run(m2ee, logs.get_loglevels())
         metrics.run(m2ee)
         appdynamics.run()
+        fluentbit.run()
         nginx.run()
 
         # Wait for the runtime to be ready before starting Databroker
