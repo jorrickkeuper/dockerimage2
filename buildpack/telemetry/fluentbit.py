@@ -10,6 +10,8 @@ NAMESPACE = "fluentbit"
 CONFIG_FILENAME = "fluentbit.conf"
 FLUENTBIT_BIN_NAME = "fluent-bit-bin.tar.gz"
 
+LOGS_PORT = 9032
+
 
 def stage(buildpack_dir, destination_path, cache_path):
 
@@ -33,6 +35,20 @@ def stage(buildpack_dir, destination_path, cache_path):
             destination_path,
             NAMESPACE,
         ),
+    )
+
+
+def update_config(m2ee):
+
+    util.upsert_logging_config(
+        m2ee,
+        {
+            "type": "tcpjsonlines",
+            "name": "FluentbitSubscriber",
+            "autosubscribe": "INFO",
+            "host": "localhost",
+            "port": str(LOGS_PORT),
+        },
     )
 
 

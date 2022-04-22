@@ -148,6 +148,7 @@ if __name__ == "__main__":
         java.update_config(m2ee, util.get_vcap_data(), java_version)
         newrelic.update_config(m2ee, util.get_vcap_data()["application_name"])
         appdynamics.update_config(m2ee)
+        fluentbit.update_config(m2ee)
         dynatrace.update_config(m2ee, util.get_vcap_data()["application_name"])
         mx_java_agent.update_config(m2ee)
         telegraf.update_config(m2ee, util.get_vcap_data()["application_name"])
