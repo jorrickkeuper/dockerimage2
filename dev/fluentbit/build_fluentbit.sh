@@ -14,6 +14,6 @@ docker rm fluentbit_build_container
 
 echo "Archiving bin file..."
 
-tar -czf fluent-bit-bin.tar.gz fluent-bit
+tar -czf fluent-bit-1.9.2.tar.gz fluent-bit
 
 echo "Done"
