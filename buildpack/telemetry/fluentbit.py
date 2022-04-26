@@ -15,7 +15,7 @@ CONF_FILENAME = f"{NAMESPACE}.conf"
 FLUENTBIT_VERSION = "1.9.2"
 FLUENTBIT_PACKAGE = f"fluent-bit-{FLUENTBIT_VERSION}.tar.gz"
 
-LOGS_PORT = 9032
+LOGS_PORT = 5170
 
 
 def stage(buildpack_dir, destination_path, cache_path):
