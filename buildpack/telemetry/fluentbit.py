@@ -2,6 +2,9 @@ import logging
 import os
 import subprocess
 import shutil
+import socket
+
+import backoff
 
 from buildpack import util
 
@@ -73,3 +76,20 @@ def run():
     subprocess.Popen(
         (fluentbit_bin_path, "-c", fluentbit_config_path),
     )
+
+    # The runtime does not handle a non-open logs endpoint socket
+    # gracefully, so wait until it's up
+    @backoff.on_predicate(backoff.expo, lambda x: x > 0, max_time=10)
+    def _await_logging_endpoint():
+        return socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect_ex(
+            ("localhost", LOGS_PORT)
+        )
+
+    logging.info("Awaiting fluentbit log subscriber...")
+    if _await_logging_endpoint() == 0:
+        logging.info("fluentbit log subscriber is ready")
+    else:
+        logging.error(
+            "Fluentbit log subscriber was not initialized correctly."
+            "Application logs will not be shipped to fluentbit."
+        )
