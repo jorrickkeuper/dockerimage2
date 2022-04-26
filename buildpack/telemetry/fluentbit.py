@@ -7,18 +7,20 @@ from buildpack import util
 
 
 NAMESPACE = "fluentbit"
-CONFIG_FILENAME = "fluentbit.conf"
-FLUENTBIT_BIN_NAME = "fluent-bit-bin.tar.gz"
+
+CONF_FILENAME = f"{NAMESPACE}.conf"
+FLUENTBIT_VERSION = "1.9.2"
+FLUENTBIT_PACKAGE = f"fluent-bit-{FLUENTBIT_VERSION}.tar.gz"
 
 LOGS_PORT = 9032
 
 
 def stage(buildpack_dir, destination_path, cache_path):
 
-    logging.info("Staging Fluent Bit log processor...")
+    logging.info("Staging fluentbit ...")
 
     fluentbit_cdn_path = os.path.join(
-        "/mx-buildpack", NAMESPACE, FLUENTBIT_BIN_NAME
+        "/mx-buildpack", NAMESPACE, FLUENTBIT_PACKAGE
     )
 
     util.resolve_dependency(
@@ -30,7 +32,7 @@ def stage(buildpack_dir, destination_path, cache_path):
     )
 
     shutil.copy(
-        os.path.join(buildpack_dir, "etc", "fluentbit", CONFIG_FILENAME),
+        os.path.join(buildpack_dir, "etc", NAMESPACE, CONF_FILENAME),
         os.path.join(
             destination_path,
             NAMESPACE,
@@ -65,7 +67,7 @@ def run():
 
     fluentbit_config_path = os.path.join(
         fluentbit_dir,
-        "fluentbit.conf",
+        CONF_FILENAME,
     )
 
     subprocess.Popen(
