@@ -148,7 +148,6 @@ if __name__ == "__main__":
         java.update_config(m2ee, util.get_vcap_data(), java_version)
         newrelic.update_config(m2ee, util.get_vcap_data()["application_name"])
         appdynamics.update_config(m2ee)
-        fluentbit.update_config(m2ee)
         dynatrace.update_config(m2ee, util.get_vcap_data()["application_name"])
         mx_java_agent.update_config(m2ee)
         telegraf.update_config(m2ee, util.get_vcap_data()["application_name"])
@@ -165,6 +164,7 @@ if __name__ == "__main__":
             extra_jmx_instance_config=databroker_jmx_instance_cfg,
             jmx_config_files=databroker_jmx_config_files,
         )
+        fluentbit.update_config(m2ee)
         nginx.update_config()
         databroker.update_config(m2ee)
         databroker.business_events.update_config(
@@ -174,12 +174,12 @@ if __name__ == "__main__":
         # Start components and runtime
         telegraf.run(runtime_version)
         datadog.run(model_version, runtime_version)
+        fluentbit.run()
         metering.run()
         logs.run(m2ee)
         runtime.run(m2ee, logs.get_loglevels())
         metrics.run(m2ee)
         appdynamics.run()
-        fluentbit.run()
         nginx.run()
 
         # Wait for the runtime to be ready before starting Databroker
