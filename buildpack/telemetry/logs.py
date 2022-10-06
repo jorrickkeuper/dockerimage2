@@ -7,7 +7,7 @@ import time
 
 from buildpack import util
 
-NAMESPACE = ARTIFACT = "mendix-logfilter"
+NAMESPACE = ARTIFACT = "mendix-logfilter-test"
 
 
 class LoggingHeartbeatEmitterThread(threading.Thread):
@@ -110,7 +110,7 @@ def run(m2ee):
 
 def stage(buildpack_dir, build_dir, cache_dir):
     logging.debug("Staging logging...")
-    NAMESPACE = ARTIFACT = "mendix-logfilter"
+    NAMESPACE = ARTIFACT = "mendix-logfilter-test"
     util.resolve_dependency(
         "logs.%s" % NAMESPACE,
         os.path.join(build_dir, ".local", NAMESPACE),
